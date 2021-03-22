@@ -2,6 +2,7 @@
 
 source "https://rubygems.org"
 
+gem 'pg'
 gem 'shotgun', '~> 0.9.2'
 gem 'sinatra', '~> 2.1'
 gem 'webrick', '~> 1.7'

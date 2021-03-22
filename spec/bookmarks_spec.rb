@@ -5,9 +5,9 @@ describe Bookmarks do
 
   describe '#all' do
     it 'should be able to print a list with all bookmarks' do 
-      expect(mark).to include 'github.com'
-      expect(mark).to include 'emmapriester.com'
-      expect(mark).to include 'hotmail.com'
+      expect(mark).to include 'http://www.github.com'
+      expect(mark).to include 'http://www.emmapriester.com'
+      expect(mark).to include 'http://www.hotmail.com'
     end 
   end 
 end
