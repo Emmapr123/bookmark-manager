@@ -1,6 +1,8 @@
 <ul>
   <% $mark.each { |bookmark| %>
-    <li><%=bookmark%></li>
+  <%# <%  bookmark.split(": ").each do |title, url|%> %>
+  <li><a href="<%=bookmark.url%>"><%=bookmark.title%></a></li>
+        <%# <%end%> %>
   <% } %>
 </ul>
 <form action='/new_bookmark' method='get'>

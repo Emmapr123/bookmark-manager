@@ -5,7 +5,7 @@ class BookmarkManager < Sinatra::Base
   enable :sessions
 
   get '/' do
-    "Hello World"
+    redirect '/bookmark'
   end
 
   get '/bookmark' do
