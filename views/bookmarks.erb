@@ -1,5 +1,8 @@
 <ul>
   <% $bookmark.each { |bookmark| %>
-    <li><%=bookmark%></li> 
+    <li><%=bookmark%></li>
   <% } %>
 </ul>
+<form action='/new_bookmark' method='get'>
+  <input type='submit' value='add_bookmark'>
+</form>

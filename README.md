@@ -10,7 +10,12 @@ Connect to `psql` and create the `bookmark_manager` database:
 
  ### run it
 
+In the command line, type rackup -p 3000
+
  To view bookmarks, navigate to `localhost:3000/bookmarks`.
+
+ Additionally, create an identical database, named bookmark_manager_test.
+ Create an environmental variable containing the name of the bookmark_manager database, named 'database_test'.
 
 ### User stories:
 
@@ -58,4 +63,3 @@ I want to be the only one to have access to my bookmarks
 ### Domain model
 
 ![Bookmark Manager domain model](./domain_model.png)
-
