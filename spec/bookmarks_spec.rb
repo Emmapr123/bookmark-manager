@@ -26,6 +26,16 @@ describe Bookmarks do
       expect(mark.url).to eq 'http://twitter.com'
     end
   end
+
+  describe '.delete' do 
+    it 'deletes a bookmark' do
+      david = Bookmarks.create(url: 'http://twitter.com', title: 'Twitter')
+      david = Bookmarks.delete(title: 'Twitter')
+      david = Bookmarks.all
+      
+      expect(david).not_to include 'Twitter'
+    end
+  end
 end
 
 

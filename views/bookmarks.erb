@@ -11,6 +11,9 @@
         <li>
           <a href="<%= bookmark.url %>">
             <%= bookmark.title %>
+            <form action='/'>
+              <input type='submit' value='delete'>
+            </form>
           </a>
         </li>
       <% end %>
