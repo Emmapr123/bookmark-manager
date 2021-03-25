@@ -11,11 +11,14 @@
         <li class="bookmark" id="bookmark-<%= bookmark.id %>">
           <a href="<%= bookmark.url %>">
             <%= bookmark.title %>
-            <form action="/bookmark/<%= bookmark.id %>" method="post">
-              <input type="hidden" name="_method" value="DELETE">
-              <input type='submit' value='delete'>
-            </form>
           </a>
+          <form action="/bookmark/<%= bookmark.id %>" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type='submit' value='delete'>
+          </form>
+          <form action="/bookmark/<%= bookmark.id %>/update" method="get">
+            <input type='submit' value='update'>
+          </form>
         </li>
       <% end %>
     </ul>
