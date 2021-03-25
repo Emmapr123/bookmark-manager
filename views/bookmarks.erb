@@ -1,10 +1,25 @@
-<ul>
-  <% $mark.each { |bookmark| %>
-  <%# <%  bookmark.split(": ").each do |title, url|%> %>
-  <li><a href="<%=bookmark.url%>"><%=bookmark.title%></a></li>
-        <%# <%end%> %>
-  <% } %>
-</ul>
-<form action='/new_bookmark' method='get'>
-  <input type='submit' value='add_bookmark'>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bookmark Manager</title>
+</head>
+<body>
+
+  <h1>Bookmarks:</h1>
+    <ul>
+      <% @mark.each do |bookmark| %>
+        <li>
+          <a href="<%= bookmark.url %>">
+            <%= bookmark.title %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  
+    <p>
+    <form action='/new_bookmark' method="get">
+    <button type="submit" name="add_bookmark">New Bookmark</button>
+    </form>
+    </p>
+  </body>
+  </html>

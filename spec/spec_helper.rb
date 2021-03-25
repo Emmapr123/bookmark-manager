@@ -25,7 +25,7 @@ Capybara.app = BookmarkManager
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.before(:each) do 
-    ENV['database_test'] = 'bookmark_manager_test'
+    add_bookmark
   end 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -111,6 +111,6 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 config.after(:suite) do
-  ENV['database_test'] = 'bookmark_manager'
+  ENV['ENVIRONMENT'] = 'bookmark_manager'
 end 
 end

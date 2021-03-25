@@ -2,15 +2,34 @@ require 'pg'
 
 class Bookmarks 
 
-  def self.all
-    connection = PG.connect(dbname: ENV['database_test'])
-    result = connection.exec('SELECT * FROM bookmarks;')
-    result.map { |bookmark| "#{bookmark['title']}: #{bookmark['url']}" }
+  attr_reader :id, :url, :title 
+
+  def initialize(id:, title:, url:)
+    @id = id 
+    @url = url 
+    @title = title
   end 
 
-  def self.create(title, url)
-    connection = PG.connect(dbname: ENV['database_test'])
-    result = connection.exec("INSERT INTO bookmarks(title, url) VALUES ('#{title}', '#{url}')")
-  end 
+  def self.all
+    if ENV['RACK_ENV'] = 'test' 
+      connection = PG.connect(dbname: 'bookmark_manager_test')
+    else
+      connection = PG.connect(dbname: 'bookmark_manager')
+    end
+    result = connection.exec("SELECT * FROM bookmarks")
+    result.map do |bookmark|
+      Bookmarks.new(id: bookmark['id'], title: bookmark['title'], url: bookmark['url'])
+  end
+end 
+
+  def self.create(title:, url:)
+    if ENV['RACK_ENV'] == 'test'
+      connection = PG.connect(dbname: 'bookmark_manager_test')
+    else
+      connection = PG.connect(dbname: 'bookmark_manager')
+    end
+    result = connection.exec("INSERT INTO bookmarks (url, title) VALUES('#{url}', '#{title}') RETURNING id, title, url;")
+    Bookmarks.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
+    end 
 
 end 

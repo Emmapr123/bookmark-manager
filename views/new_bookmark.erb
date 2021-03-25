@@ -1,9 +1,19 @@
-<form action='/add_bookmark' method='post'>
-  <input type='text' name='title'>
-  <input type='text' name='bookmark'>
-  <input type='submit' value='bookmark'>
-</form>
-<br>
-<form action='/bookmark'>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create New Bookmark</title>
+</head>
+
+<body>
+  <h1>Create New Bookmark:
+  <form action='/add_bookmark' method='post'>
+  <label for="url">Enter website URL:</label><input type="text" name="url" id="url">
+  <label for="title">Enter website title:</label><input type="text" name="title" id="title">
+  <input type="submit" value="add_bookmark">
+  </form>
+  <form action='/bookmark'>
   <input type='submit' value='Cancel'>
-</form>
+  </form> 
+</body>
+</html>
+

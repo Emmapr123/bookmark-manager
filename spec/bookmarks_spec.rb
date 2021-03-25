@@ -2,23 +2,29 @@ require 'bookmarks'
 require_relative './test_helper'
 
 describe Bookmarks do
-  let(:mark) { Bookmarks.all }
-  let(:steven) { Bookmarks.create('Makers','http://www.makers.tech') }
 
   describe '#all' do
     it 'should be able to print a list with all bookmarks' do
-      truncates
-      add_bookmark
-      expect(mark).to include 'Github: http://www.github.com'
-      expect(mark).to include 'Emma Priester: http://www.emmapriester.com'
-      expect(mark).to include 'Hotmail: http://www.hotmail.com'
+      connection = PG.connect(dbname: 'bookmark_manager_test')
+      steven = Bookmarks.all
+   
+      expect(steven.length).to eq 3
+      expect(steven.first).to be_a Bookmarks
+      expect(steven.first.title).to eq 'Github'
+      expect(steven.first.url).to eq 'http://www.github.com'
     end
   end
 
-  describe '#create' do
-    it 'can create a new bookmark' do
-      steven
-      expect(mark).to include "Makers: http://www.makers.tech"
+  describe '.create' do 
+    it 'creates a new bookmark' do 
+      mark = Bookmarks.create(url: 'http://twitter.com', title: 'Twitter')
+      persisted_data = PG.connect(dbname: 'bookmark_manager_test').query("SELECT * FROM bookmarks WHERE id = #{mark.id};")
+
+      expect(mark).to be_a Bookmarks
+      expect(mark.title).to eq 'Twitter'
+      expect(mark.url).to eq 'http://twitter.com'
     end
   end
 end
+
+
