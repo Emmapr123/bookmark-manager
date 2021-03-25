@@ -10,13 +10,13 @@ feature 'add bookmark' do
   end
 end
 
-# feature 'delete bookmark' do
-#   scenario 'user is able to delete http://www.github.com' do 
-#     visit '/bookmark'
-#     first('.bookmark').click_on 'delete'
-#     expect(page).not_to have_content 'Github'
-#   end
-# end
+feature 'delete bookmark' do
+  scenario 'user is able to delete http://www.github.com' do 
+    visit '/bookmark'
+    first('.bookmark').click_on 'delete'
+    expect(page).not_to have_content 'Github'
+  end
+end
 
 feature 'update bookmark' do
   scenario 'user is able to update http://www.github.com' do 

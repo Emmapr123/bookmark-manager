@@ -47,7 +47,8 @@ end
     else
       connection = PG.connect(dbname: 'bookmark_manager')
     end
-    result = connection.exec("UPDATE bookmarks SET title = '#{title}', url = '#{url}' WHERE id = '#{id}'")
+    result = connection.exec("UPDATE bookmarks SET title = '#{title}', url = '#{url}' WHERE id = '#{id}' RETURNING id, title, url;")
+    Bookmarks.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
   end 
 
 end 
