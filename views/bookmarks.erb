@@ -6,6 +6,7 @@
 <body>
 
   <h1>Bookmarks:</h1>
+  <%= flash[:notice] %>
     <ul>
       <% @mark.each do |bookmark| %>
         <li class="bookmark" id="bookmark-<%= bookmark.id %>">

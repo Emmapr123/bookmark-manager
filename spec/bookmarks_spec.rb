@@ -25,6 +25,11 @@ describe Bookmarks do
       expect(mark.title).to eq 'Twitter'
       expect(mark.url).to eq 'http://www.twitter.com'
     end
+
+    it 'does not create a new bookmark if the URL is not valid' do
+      Bookmarks.create(url: 'not a real bookmark', title: 'not a real bookmark')
+      expect(Bookmarks.all.last).not_to eq 'not a real bookmark'
+    end
   end
 
   describe '.delete' do 

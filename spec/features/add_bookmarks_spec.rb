@@ -4,7 +4,7 @@ feature 'add bookmark' do
     visit '/bookmark'
     click_on('add_bookmark')
     fill_in('title', :with => 'Makers Academy')
-    fill_in('url', :with => 'hhtp://www.makers.tech')
+    fill_in('url', :with => 'http://www.makers.tech')
     click_on('add_bookmark')
     expect(page).to have_content "Makers Academy"
   end
@@ -27,4 +27,17 @@ feature 'update bookmark' do
     click_on 'submit'
     expect(page).to have_content "Shithub"
   end 
+end 
+
+feature 'error' do
+  scenario 'gives an error when not given a fake url' do
+    visit '/'
+    click_on('add_bookmark')
+    fill_in('title', :with => 'Shithub')
+    fill_in('url', :with => 'not a real url')
+    click_on('add_bookmark')
+
+    expect(page).not_to have_content 'not a real url'
+    expect(page).to have_content "You must submit a valid URL."
+  end
 end 
