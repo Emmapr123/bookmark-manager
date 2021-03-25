@@ -1,4 +1,5 @@
 require 'pg'
+require_relative 'database_connection'
 
 class Bookmarks 
 
@@ -11,43 +12,23 @@ class Bookmarks
   end 
 
   def self.all
-    if ENV['RACK_ENV'] = 'test' 
-      connection = PG.connect(dbname: 'bookmark_manager_test')
-    else
-      connection = PG.connect(dbname: 'bookmark_manager')
-    end
-    result = connection.exec("SELECT * FROM bookmarks")
-    result.map do |bookmark|
+    result = DatabaseConnection.query("SELECT * FROM bookmarks")
+    result.map do |bookmark| 
       Bookmarks.new(id: bookmark['id'], title: bookmark['title'], url: bookmark['url'])
-  end
-end 
+    end
+  end 
 
   def self.create(title:, url:)
-    if ENV['RACK_ENV'] == 'test'
-      connection = PG.connect(dbname: 'bookmark_manager_test')
-    else
-      connection = PG.connect(dbname: 'bookmark_manager')
-    end
-    result = connection.exec("INSERT INTO bookmarks (url, title) VALUES('#{url}', '#{title}') RETURNING id, title, url;")
+    result = DatabaseConnection.query("INSERT INTO bookmarks (url, title) VALUES('#{url}', '#{title}') RETURNING id, title, url;")    
     Bookmarks.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
   end 
 
   def self.delete(id:)
-    if ENV['RACK_ENV'] == 'test'
-      connection = PG.connect(dbname: 'bookmark_manager_test')
-    else
-      connection = PG.connect(dbname: 'bookmark_manager')
-    end
-    result = connection.exec("DELETE FROM bookmarks WHERE id = '#{id}';")
+    DatabaseConnection.query("DELETE FROM bookmarks WHERE id = #{id}")
   end 
 
   def self.update(title:, url:, id:)
-    if ENV['RACK_ENV'] == 'test'
-      connection = PG.connect(dbname: 'bookmark_manager_test')
-    else
-      connection = PG.connect(dbname: 'bookmark_manager')
-    end
-    result = connection.exec("UPDATE bookmarks SET title = '#{title}', url = '#{url}' WHERE id = '#{id}' RETURNING id, title, url;")
+    result = DatabaseConnection.query("UPDATE bookmarks SET url = '#{url}', title = '#{title}' WHERE id = #{id} RETURNING id, url, title;")    
     Bookmarks.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
   end 
 
